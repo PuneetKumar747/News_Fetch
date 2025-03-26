@@ -4,19 +4,26 @@ import requests
 from datetime import datetime
 
 # Configuration
-GNEWS_API_KEY = "74031bf7824c47afe049ba5835d4469470086"  # Replace with your GNews API key
+NEWS_API_KEY = "74031bf7824c47afe049ba5835d4469470086"  # Replace with your GNews API key
 CATEGORIES = ["general", "nation", "world", "business", "technology", "entertainment", "sports", "science", "health"]
 INTERVAL = 1800  # Fetch news every 30 minutes
-BASE_URL = "https://gnews.io/api/v4/top-headlines?category={}&apikey={}&lang=en"
+BASE_URL = "https://newsapi.org/v2/top-headlines?category={}&apiKey={}"
 
 def fetch_news(category):
-    """Fetches news articles from the GNews API for a given category."""
-    response = requests.get(BASE_URL.format(category, GNEWS_API_KEY))
+    """Fetches news articles from NewsAPI.org for a given category."""
+    url = BASE_URL.format(category, NEWS_API_KEY)  
+    print(f"Fetching news from: {url}")  # Debugging print
+
+    response = requests.get(url)
+    print(f"Response Status Code: {response.status_code}")  # Show HTTP response code
+    print(f"Response Content: {response.text}")  # Show API response
+
     if response.status_code == 200:
         return response.json().get("articles", [])
     else:
-        print(f"Failed to fetch news for {category}. Status Code: {response.status_code}")
+        print(f"Failed to fetch news for {category}.")
         return []
+
 
 def load_existing_news():
     """Loads existing news data from separate JSON files."""
