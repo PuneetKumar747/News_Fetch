@@ -2,7 +2,7 @@ import http.server
 import socketserver
 import os
 
-PORT = 8000  # Change this if needed
+PORT = 10000  # Change this if needed
 DIRECTORY = "."  # Serve files from the current directory
 
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
